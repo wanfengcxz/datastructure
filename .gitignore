@@ -1,17 +1,6 @@
-# Ignore CI build directory
-build/
-xcuserdata
-cmake-build-debug/
-.idea/
-bazel-bin
-bazel-genfiles
-bazel-googletest
-bazel-out
-bazel-testlogs
-# python
-*.pyc
 
-lib/docs/
+lib/
+cmake-build-debug/
 
 # Prerequisites
 *.d
