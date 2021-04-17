@@ -3,4 +3,8 @@ project(datastructure)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(datastructure main.cpp)
+add_subdirectory(lib)
+include_directories(googletest/include googletest)
+
+add_executable(seqtabletest ./LinearTable/SeqTable/googletest.cpp)
+target_link_libraries(seqtabletest gtest gtest_main)
