@@ -1,2 +1,2 @@
-# datastruct
+# datastructure
 考研复习数据结构
