@@ -23,7 +23,7 @@ namespace staticAllocation {
         }
 
         int getLength() {
-            return this->length;
+            return length;
         }
 
         /**
@@ -129,10 +129,8 @@ namespace dynamicAllocation {
 
     public:
 
-        SeqTable(){
+        SeqTable():length(0), capacity(InitialSize){
             data = new T[InitialSize];
-            length = 0;
-            capacity = InitialSize;
         }
 
         ~SeqTable(){
@@ -141,6 +139,10 @@ namespace dynamicAllocation {
 
         int size(){
             return length;
+        }
+
+        int getCapacity(){
+            return capacity;
         }
 
         bool insertElement(int i, T value);
