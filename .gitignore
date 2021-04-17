@@ -1,3 +1,5 @@
+lib/docs/
+
 # Prerequisites
 *.d
 
@@ -6,6 +8,21 @@
 *.lo
 *.o
 *.obj
+
+# Ignore CI build directory
+cmake-build-debug/
+lib/cmake-build-debug/
+.idea/
+build/
+xcuserdata
+.idea/
+bazel-bin
+bazel-genfiles
+bazel-googletest
+bazel-out
+bazel-testlogs
+# python
+*.pyc
 
 # Precompiled Headers
 *.gch
