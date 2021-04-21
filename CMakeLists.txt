@@ -19,8 +19,8 @@ target_link_libraries(SeqTableTest gtest gtest_main)
 add_executable(SingleLinkedListTest ./LinearTable/LinkedList/SingleLinkedList/SingleLinkedList_test.cpp)
 target_link_libraries(SingleLinkedListTest gtest gtest_main)
 
-## StaticLinkedList
-add_executable(StaticLinkedListTest ./LinearTable/LinkedList/StaticLinkedList/StaticLinkedList_test.cpp)
+## StaticLinkedList_vacant
+add_executable(StaticLinkedListTest LinearTable/LinkedList/StaticLinkedList_vacant/StaticLinkedList_test.cpp)
 target_link_libraries(StaticLinkedListTest gtest gtest_main)
 
 
