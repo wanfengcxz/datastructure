@@ -34,6 +34,10 @@ EXPECT_EQ(-3, add(-1, -2));
 }
 
 int main() {
+//    int a = 5,b = 1;
+//    std::cout << (b=a) << std::endl;
+    std::stack<int> s;
+    std::cout << s.top() << std::endl;
     ::testing::InitGoogleTest();
     return RUN_ALL_TESTS();
 }
