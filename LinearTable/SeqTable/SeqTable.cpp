@@ -8,12 +8,13 @@ using namespace std;
 
 namespace staticAllocation {
 
-    const int MaxSize = 50;
+
     using T = int;
 
     struct SeqTable {
 
     private:
+        static const int MaxSize = 50;
         int length;
         T data[MaxSize];
     public:
@@ -99,12 +100,12 @@ namespace staticAllocation {
 
 namespace dynamicAllocation {
 
-    const int InitialSize = 2;
     using T = int;
 
     struct SeqTable{
 
     private:
+        static const int InitialSize = 2;
         int length;
         int capacity;
         T *data;

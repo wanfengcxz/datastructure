@@ -5,12 +5,12 @@
 #ifndef DATASTRUCTURE_SQSTACK_H
 #define DATASTRUCTURE_SQSTACK_H
 
-const int MaxSize = 5;
 using T = int;
 
 class SqStack {
 
 private:
+    static const int MaxSize = 5;
     T data[MaxSize];
     int top_;
 

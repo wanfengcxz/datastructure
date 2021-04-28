@@ -5,8 +5,6 @@
 #ifndef DATASTRUCTURE_SHARESTACK_H
 #define DATASTRUCTURE_SHARESTACK_H
 
-const int MaxSize = 5;
-
 /**
  * P66 5.
  * @tparam T type
@@ -15,6 +13,7 @@ template<typename T>
 class ShareStack {
 
 private:
+    static const int MaxSize = 5;
     T data[MaxSize];
     int top1;
     int top2;
