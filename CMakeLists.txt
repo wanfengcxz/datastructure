@@ -45,4 +45,8 @@ target_link_libraries(ShareStack gtest gtest_main)
 add_executable(CircularQueue Queue/CircularQueue/CircularQueue_test.cpp)
 target_link_libraries(CircularQueue gtest gtest_main)
 
+## LinkedQueue
+add_executable(LinkedQueue Queue/LinkedQueue/LinkedQueue_test.cpp)
+target_link_libraries(LinkedQueue gtest gtest_main)
+
 
