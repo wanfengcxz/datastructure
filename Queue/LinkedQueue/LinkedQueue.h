@@ -15,7 +15,7 @@ private:
 
 public:
 
-    LinkedQueue() : front_(new QNode(0)), rear_(nullptr) {
+    LinkedQueue() : front_(new QNode(0)), rear_(front_) {
 
     }
 

@@ -34,7 +34,9 @@ TEST_F(LinkedQueueTest, queue){
     ASSERT_EQ(linkedQueue.push(5), true);
     ASSERT_EQ(linkedQueue.push(6), true);
     ASSERT_EQ(linkedQueue.pop(), true);
+    ASSERT_EQ(linkedQueue.size(),5);
     ASSERT_EQ(linkedQueue.push(6), true);
+    ASSERT_EQ(linkedQueue.size(), 6);
     ASSERT_EQ(linkedQueue.pop(), true);
     ASSERT_EQ(linkedQueue.pop(), true);
     ASSERT_EQ(linkedQueue.pop(), true);

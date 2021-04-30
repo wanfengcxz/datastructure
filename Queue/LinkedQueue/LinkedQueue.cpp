@@ -24,12 +24,6 @@ bool LinkedQueue::back(T &e) {
 }
 
 bool LinkedQueue::push(T e) {
-    if (rear_ == nullptr) {
-        rear_ = new QNode(e);
-        front_->next = rear_;
-        front_->data++;
-        return true;
-    }
     rear_->next = new QNode(e);
     rear_ = rear_->next;
     front_->data++;
@@ -45,7 +39,7 @@ bool LinkedQueue::pop() {
         front_->next = temp;
         front_->data--;
         if (front_->data == 0){
-            rear_ = nullptr;
+            rear_ = front_;
         }
         return true;
     }
@@ -56,5 +50,5 @@ int LinkedQueue::size() {
 }
 
 bool LinkedQueue::empty() {
-    return rear_ == nullptr;
+    return rear_ == front_;
 }
