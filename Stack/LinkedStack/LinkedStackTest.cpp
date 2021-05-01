@@ -7,7 +7,7 @@
 
 class LinkedStackTest : public ::testing::Test {
 protected:
-    LinkedStack linkedStack;
+    LinkedStack<int> linkedStack;
 
 protected:
     virtual void TearDown() {
@@ -23,7 +23,7 @@ protected:
 
 
 TEST_F(LinkedStackTest, stack) {
-    T e = 3;
+    int e = 3;
     EXPECT_EQ(linkedStack.top(e),true);
     ASSERT_EQ(e,2);
     ASSERT_EQ(linkedStack.pop(),true);

@@ -4,31 +4,35 @@
 
 #include "LinkedStack.h"
 
-bool LinkedStack::push(T e) {
-    LinkedStackNode *temp = new LinkedStackNode(e);
+template<typename T>
+bool LinkedStack<T>::push(T e) {
+    LinkedStackNode<T> *temp = new LinkedStackNode<T>(e);
     temp->next = head;
     head = temp;
     return true;
 }
 
-bool LinkedStack::pop() {
+template<typename T>
+bool LinkedStack<T>::pop() {
     if (head == nullptr)
         return false;
 
-    LinkedStackNode *temp = head;
+    LinkedStackNode<T> *temp = head;
     head = head->next;
     delete temp;
     return true;
 }
 
-bool LinkedStack::top(T &e) {
+template<typename T>
+bool LinkedStack<T>::top(T &e) {
     if (head == nullptr)
         return false;
     e = head->data;
     return true;
 }
 
-bool LinkedStack::empty() {
+template<typename T>
+bool LinkedStack<T>::empty() {
     return head == nullptr;
 }
 

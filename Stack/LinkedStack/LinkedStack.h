@@ -7,11 +7,11 @@
 
 #include "LinkedStackNode.h"
 
-
+template<typename T>
 class LinkedStack {
 
 private:
-    LinkedStackNode * head;
+    LinkedStackNode<T> * head;
 
 public:
     LinkedStack():head(nullptr){
