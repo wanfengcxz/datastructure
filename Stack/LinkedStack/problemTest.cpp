@@ -22,7 +22,7 @@ protected:
 };
 
 
-TEST_F(Queue2STest, queue) {
+TEST_F(Queue2STest, queue2S) {
     int e = 0;
     ASSERT_EQ(queue.empty(),false);
     ASSERT_EQ(queue.pop(e),true);

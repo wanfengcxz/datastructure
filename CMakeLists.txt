@@ -41,7 +41,7 @@ add_executable(LinkedStackProblemTest Stack/LinkedStack/problemTest.cpp)
 target_link_libraries(LinkedStackProblemTest gtest gtest_main)
 
 ## application
-add_executable(BracketMatching Stack/Application/BracketMatching/BracketMatching.cpp)
+add_executable(BracketMatching Stack/Application/BracketMatching/BracketMatchingTest.cpp)
 target_link_libraries(BracketMatching gtest gtest_main)
 
 ## ShareStack
