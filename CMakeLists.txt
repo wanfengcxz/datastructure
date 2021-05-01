@@ -19,8 +19,8 @@ target_link_libraries(SeqTableTest gtest gtest_main)
 add_executable(SingleLinkedListTest ./LinearTable/LinkedList/SingleLinkedList/SingleLinkedList_test.cpp)
 target_link_libraries(SingleLinkedListTest gtest gtest_main)
 
-## exercises
-add_executable(SingleLinkedListExerciseTest ./LinearTable/LinkedList/SingleLinkedList/exercises_test.cpp)
+## problems
+add_executable(SingleLinkedListExerciseTest LinearTable/LinkedList/SingleLinkedList/problem_test.cpp)
 target_link_libraries(SingleLinkedListExerciseTest gtest gtest_main)
 
 ## StaticLinkedList_vacant
@@ -35,6 +35,10 @@ target_link_libraries(SqStack gtest gtest_main)
 ## LinkedStack
 add_executable(LinkedStack Stack/LinkedStack/LinkedStack_test.cpp)
 target_link_libraries(LinkedStack gtest gtest_main)
+
+## problems
+add_executable(LinkedStackProblemTest Stack/LinkedStack/problem_test.cpp)
+target_link_libraries(LinkedStackProblemTest gtest gtest_main)
 
 ## ShareStack
 add_executable(ShareStack Stack/ShareStack/ShareStack_test.cpp)
