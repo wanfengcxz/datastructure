@@ -36,9 +36,9 @@ target_link_libraries(SqStackTest gtest gtest_main)
 add_executable(LinkedStackTest Stack/LinkedStack/LinkedStackTest.cpp)
 target_link_libraries(LinkedStackTest gtest gtest_main)
 
-### problems
-add_executable(LinkedStackProblemTest Stack/LinkedStack/problemTest.cpp)
-target_link_libraries(LinkedStackProblemTest gtest gtest_main)
+### Problems
+add_executable(StackQueueProblemTest Stack/Problem/ProblemTest.cpp)
+target_link_libraries(StackQueueProblemTest gtest gtest_main)
 
 ## application
 ### 括号匹配
