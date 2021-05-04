@@ -32,7 +32,7 @@ bool LinkedStack<T>::top(T &e) {
 }
 
 template<typename T>
-bool LinkedStack<T>::empty() {
+bool LinkedStack<T>::empty() const {
     return head == nullptr;
 }
 

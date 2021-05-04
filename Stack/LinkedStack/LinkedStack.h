@@ -23,7 +23,7 @@ public:
 
     bool top(T &e);
 
-    bool empty();
+    bool empty() const;
 
 };
 
