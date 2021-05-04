@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 add_subdirectory(lib)
 include_directories(googletest/include googletest)
 
-# test
+# demo
 add_executable(test main.cpp)
 target_link_libraries(test gtest gtest_main)
 
