@@ -62,4 +62,8 @@ target_link_libraries(CircularQueueTest gtest gtest_main)
 add_executable(LinkedQueueTest Queue/LinkedQueue/LinkedQueueTest.cpp)
 target_link_libraries(LinkedQueueTest gtest gtest_main)
 
+# String
 
+## KMP
+add_executable(KMPTest String/KMP/kmpTest.cpp)
+target_link_libraries(KMPTest gtest gtest_main)
