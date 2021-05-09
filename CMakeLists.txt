@@ -63,7 +63,17 @@ add_executable(LinkedQueueTest Queue/LinkedQueue/LinkedQueueTest.cpp)
 target_link_libraries(LinkedQueueTest gtest gtest_main)
 
 # String
+## 堆分配存储
+add_executable(StringTest String/String/StringTest.cpp)
+target_link_libraries(StringTest gtest gtest_main)
+
 
 ## KMP
 add_executable(KMPTest String/KMP/kmpTest.cpp)
 target_link_libraries(KMPTest gtest gtest_main)
+
+
+# Tree
+## BinaryTree
+add_executable(BinaryTreeTest Tree/BinaryTree/BinaryTreeTest.cpp)
+target_link_libraries(BinaryTreeTest gtest gtest_main)
