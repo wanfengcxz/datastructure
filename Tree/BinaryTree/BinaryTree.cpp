@@ -67,48 +67,109 @@ void BinaryTree<int>::initBinaryTree() {
      *   2     3
      *  4     6  7
      */
-    BiTNode<int> *temp = new BiTNode<int>(1);
-    _head = temp;
-    temp = new BiTNode<int>(2);
-    _head->lchild = temp;
-    temp = new BiTNode<int>(3);
-    _head->rchild = temp;
-    temp = new BiTNode<int>(4);
-    _head->lchild->lchild = temp;
-    temp = new BiTNode<int>(6);
-    _head->rchild->lchild = temp;
-    temp = new BiTNode<int>(7);
-    _head->rchild->rchild = temp;
-
-}
-
-template<typename T>
-void BinaryTree<T>::postorderTraversal(vector<T> &res) {
+    BiTNode<int> *tmp = new BiTNode<int>(1);
+    _head = tmp;
+    tmp = new BiTNode<int>(2);
+    _head->lchild = tmp;
+    tmp = new BiTNode<int>(3);
+    _head->rchild = tmp;
+    tmp = new BiTNode<int>(4);
+    _head->lchild->lchild = tmp;
+    tmp = new BiTNode<int>(6);
+    _head->rchild->lchild = tmp;
+    tmp = new BiTNode<int>(7);
+    _head->rchild->rchild = tmp;
 
 }
 
 template<typename T>
 void BinaryTree<T>::preorderTraversal(vector<T> &res) {
+//    if (_head == nullptr)
+//        return;
+//    BiTNode<T> *tmp = _head;
+//    stack<BiTNode<T> *> s;
+//    while (tmp != nullptr || !s.empty()) {
+//        if (tmp != nullptr) {
+//            res.emplace_back(tmp->data);
+//            s.emplace(tmp->rchild);
+//            s.emplace(tmp->lchild);
+//        }
+//        tmp = s.top();
+//        s.pop();
+//    }
+//    return;
     if (_head == nullptr)
         return;
-    BiTNode<T> *temp = _head;
+    BiTNode<T> *tmp = _head;
     stack<BiTNode<T> *> s;
-    while (temp != nullptr || !s.empty()) {
-        if (temp != nullptr) {
-            res.emplace_back(temp->data);
-            cout << temp->data << " ";
-            s.emplace(temp->rchild);
-            s.emplace(temp->lchild);
+    while (tmp != nullptr || !s.empty()) {
+        while (tmp != nullptr) {
+            s.push(tmp);
+            // 第一次遇到就将其添加到结果中
+            res.emplace_back(tmp->data);
+            tmp = tmp->lchild;
         }
-        temp = s.top();
-        s.pop();
+        if (!s.empty()) {
+            tmp = s.top();
+            s.pop();
+            tmp = tmp->rchild;
+        }
     }
     return;
 }
 
 template<typename T>
 void BinaryTree<T>::inorderTraversal(vector<T> &res) {
+    if (_head == nullptr)
+        return;
+    BiTNode<T> *tmp = _head;
+    stack<BiTNode<T> *> s;
+    while (tmp != nullptr || !s.empty()) {
+        while (tmp != nullptr) {
+            s.push(tmp);
+            tmp = tmp->lchild;
+        }
+        if (!s.empty()) {
+            tmp = s.top();
+            // 第二次遇到就将其添加到结果中
+            res.emplace_back(tmp->data);
+            s.pop();
+            tmp = tmp->rchild;
+        }
+    }
+    return;
+}
 
+template<typename T>
+void BinaryTree<T>::postorderTraversal(vector<T> &res) {
+    /**
+     * 要保证根结点在左孩子和右孩子访问之后才能访问，因此对于任一结点P，先将其入栈。
+     * 如果P不存在左孩子和右孩子，则可以直接访问它；或者P存在左孩子或者右孩子，
+     * 但是其左孩子和右孩子都已被访问过了，则同样可以直接访问该结点。
+     * 若非上述两种情况，则将P的右孩子和左孩子依次入栈，这样就保证了每次取栈顶元素的时候，
+     * 左孩子在右孩子前面被访问，左孩子和右孩子都在根结点前面被访问。
+     */
+    if (_head == nullptr)
+        return;
+    BiTNode<T> *cur = _head, *pre = nullptr;
+    stack<BiTNode<T> *> s;
+    s.push(cur);
+    while (!s.empty()) {
+        cur = s.top();
+        if ((cur->lchild == nullptr && cur->rchild == nullptr) ||
+            ((pre == cur->lchild || pre == cur->rchild) && pre != nullptr)) {
+            res.emplace_back(cur->data);
+            s.pop();
+            pre = cur;
+        }
+        else{
+            if (cur->rchild != nullptr)
+                s.push(cur->rchild);
+            if (cur->lchild != nullptr)
+                s.push(cur->lchild);
+        }
+    }
+    return;
 }
 
 template<>

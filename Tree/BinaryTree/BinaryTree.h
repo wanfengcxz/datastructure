@@ -51,11 +51,11 @@ public:
     // 前序遍历 非递归
     void preorderTraversal(vector<T> &res);
 
-    // 后序遍历 非递归
-    void postorderTraversal(vector<T> &res);
-
     // 中序遍历 非递归
     void inorderTraversal(vector<T> &res);
+
+    // 后序遍历 非递归
+    void postorderTraversal(vector<T> &res);
 
     // 序列化 DFS
     string serialize();
