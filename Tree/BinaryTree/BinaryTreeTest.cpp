@@ -7,13 +7,13 @@
 
 class BinaryTreeTest : public ::testing::Test {
 protected:
-    BinaryTree<int> binaryTree;
+    BinaryTree<int> bt1,bt2,bt3;
     vector<int> res;
 
 protected:
     virtual void SetUp() {
-        binaryTree.initBinaryTree();
-//        res.clear();
+        bt1.initBinaryTree();
+        bt2.deserialize("[1,2,3,4,null,6,7,8,null,12,null,14,15]");
     }
 
     virtual void TearDown() {
@@ -22,7 +22,7 @@ protected:
 };
 
 TEST_F(BinaryTreeTest, preorderTraversalRecur) {
-    binaryTree.preorderTraversalRecur(res);
+    bt1.preorderTraversalRecur(res);
     ASSERT_EQ(res.size(), 6);
     ASSERT_EQ(res[0], 1);
     ASSERT_EQ(res[1], 2);
@@ -30,13 +30,11 @@ TEST_F(BinaryTreeTest, preorderTraversalRecur) {
     ASSERT_EQ(res[3], 3);
     ASSERT_EQ(res[4], 6);
     ASSERT_EQ(res[5], 7);
-
-
-
 }
 
 TEST_F(BinaryTreeTest, postorderTraversalRecur) {
-    binaryTree.postorderTraversalRecur(res);
+    bt1.postorderTraversalRecur(res);
+    ASSERT_EQ(res.size(), 6);
     ASSERT_EQ(res[0], 4);
     ASSERT_EQ(res[1], 2);
     ASSERT_EQ(res[2], 6);
@@ -46,7 +44,8 @@ TEST_F(BinaryTreeTest, postorderTraversalRecur) {
 }
 
 TEST_F(BinaryTreeTest, inorderTraversalRecur) {
-    binaryTree.inorderTraversalRecur(res);
+    bt1.inorderTraversalRecur(res);
+    ASSERT_EQ(res.size(), 6);
     ASSERT_EQ(res[0], 4);
     ASSERT_EQ(res[1], 2);
     ASSERT_EQ(res[2], 1);
@@ -55,7 +54,51 @@ TEST_F(BinaryTreeTest, inorderTraversalRecur) {
     ASSERT_EQ(res[5], 7);
 }
 
+TEST_F(BinaryTreeTest, serialize){
+    ASSERT_STREQ(bt1.serialize().c_str(), "[1,2,3,4,null,6,7]");
+    ASSERT_STREQ(bt2.serialize().c_str(), "[1,2,3,4,null,6,7,8,null,12,null,14,15]");
+}
+
+TEST_F(BinaryTreeTest, deserialize){
+    bt3.deserialize("[20,12,354,15,null,26,null]");
+    ASSERT_STREQ(bt3.serialize().c_str(), "[20,12,354,15,null,26,null]");
+}
+
+
+TEST_F(BinaryTreeTest, preorderTraversal){
+    bt1.preorderTraversal(res);
+    ASSERT_EQ(res.size(), 6);
+    ASSERT_EQ(res[0], 1);
+    ASSERT_EQ(res[1], 2);
+    ASSERT_EQ(res[2], 4);
+    ASSERT_EQ(res[3], 3);
+    ASSERT_EQ(res[4], 6);
+    ASSERT_EQ(res[5], 7);
+    res.clear();
+//    bt2.preorderTraversal(res);
+//    ASSERT_EQ(res.size(), 10);
+//    ASSERT_EQ(res[0], 1);
+//    ASSERT_EQ(res[1], 2);
+//    ASSERT_EQ(res[2], 4);
+//    ASSERT_EQ(res[3], 8);
+//    ASSERT_EQ(res[4], 3);
+//    ASSERT_EQ(res[5], 6);
+//    ASSERT_EQ(res[6], 12);
+//    ASSERT_EQ(res[7], 7);
+//    ASSERT_EQ(res[8], 14);
+//    ASSERT_EQ(res[9], 15);
+}
+
 int main() {
+//    BinaryTree<int> binaryTree;
+//    vector<int> res;
+//    binaryTree.initBinaryTree();
+//    binaryTree.postorderTraversal(res);
+//    cout << endl;
+
+//    binaryTree.deserialize("[1,2,3,4,null,6,7,8,null,12,null,14,15]");
+//    binaryTree.deserialize("[1,2,3,null,null,4,5]");
+//    cout << binaryTree.serialize() << endl;
 
     ::testing::InitGoogleTest();
     return RUN_ALL_TESTS();
