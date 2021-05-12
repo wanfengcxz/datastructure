@@ -42,22 +42,25 @@ public:
     // 前序遍历 递归
     void preorderTraversalRecur(vector<T> &res);
 
-    // 后序遍历 递归
-    void postorderTraversalRecur(vector<T> &res);
-
     // 中序遍历 递归
     void inorderTraversalRecur(vector<T> &res);
 
-    // 前序遍历 非递归
+    // 后序遍历 递归
+    void postorderTraversalRecur(vector<T> &res);
+
+    // 前序遍历 迭代
     void preorderTraversal(vector<T> &res);
 
-    // 中序遍历 非递归
+    // 中序遍历 迭代
     void inorderTraversal(vector<T> &res);
 
-    // 后序遍历 非递归
+    // 后序遍历 迭代
     void postorderTraversal(vector<T> &res);
 
-    // 序列化 DFS
+    // 层次遍历
+    void levelTraversal(vector<T> &res);
+
+    // 序列化 层次序列化 BFS
     string serialize();
 
     // 反序列化

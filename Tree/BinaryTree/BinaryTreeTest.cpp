@@ -166,6 +166,30 @@ TEST_F(BinaryTreeTest, postorderTraversal){
     ASSERT_EQ(res[9], 1);
 }
 
+TEST_F(BinaryTreeTest, levelTraversal){
+    bt1.levelTraversal(res);
+    ASSERT_EQ(res.size(), 6);
+    ASSERT_EQ(res[0], 1);
+    ASSERT_EQ(res[1], 2);
+    ASSERT_EQ(res[2], 3);
+    ASSERT_EQ(res[3], 4);
+    ASSERT_EQ(res[4], 6);
+    ASSERT_EQ(res[5], 7);
+    res.clear();
+    bt2.levelTraversal(res);
+    ASSERT_EQ(res.size(), 10);
+    ASSERT_EQ(res[0], 1);
+    ASSERT_EQ(res[1], 2);
+    ASSERT_EQ(res[2],3);
+    ASSERT_EQ(res[3], 4);
+    ASSERT_EQ(res[4], 6);
+    ASSERT_EQ(res[5], 7);
+    ASSERT_EQ(res[6], 8);
+    ASSERT_EQ(res[7], 12);
+    ASSERT_EQ(res[8], 14);
+    ASSERT_EQ(res[9], 15);
+}
+
 TEST_F(BinaryTreeTest, serialize){
     ASSERT_STREQ(bt1.serialize().c_str(), "[1,2,3,4,null,6,7]");
     ASSERT_STREQ(bt2.serialize().c_str(), "[1,2,3,4,null,6,7,8,null,12,null,14,15]");

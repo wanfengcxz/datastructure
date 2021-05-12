@@ -161,14 +161,32 @@ void BinaryTree<T>::postorderTraversal(vector<T> &res) {
             res.emplace_back(cur->data);
             s.pop();
             pre = cur;
-        }
-        else{
+        } else {
             if (cur->rchild != nullptr)
                 s.push(cur->rchild);
             if (cur->lchild != nullptr)
                 s.push(cur->lchild);
         }
     }
+    return;
+}
+
+template<typename T>
+void BinaryTree<T>::levelTraversal(vector<T> &res) {
+    queue<BiTNode<T> *> q;
+    BiTNode<T> * tmp = _head;
+
+    q.push(tmp);
+    while (!q.empty()){
+        tmp = q.front();
+        q.pop();
+        res.emplace_back(tmp->data);
+        if (tmp->lchild != nullptr)
+            q.push(tmp->lchild);
+        if (tmp->rchild != nullptr)
+            q.push(tmp->rchild);
+    }
+
     return;
 }
 
