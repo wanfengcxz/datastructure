@@ -13,6 +13,7 @@ protected:
 protected:
     virtual void SetUp() {
         bt1.initBinaryTree();
+        // 此树结构见img/bt2.png
         bt2.deserialize("[1,2,3,4,null,6,7,8,null,12,null,14,15]");
     }
 
@@ -75,18 +76,18 @@ TEST_F(BinaryTreeTest, preorderTraversal){
     ASSERT_EQ(res[4], 6);
     ASSERT_EQ(res[5], 7);
     res.clear();
-//    bt2.preorderTraversal(res);
-//    ASSERT_EQ(res.size(), 10);
-//    ASSERT_EQ(res[0], 1);
-//    ASSERT_EQ(res[1], 2);
-//    ASSERT_EQ(res[2], 4);
-//    ASSERT_EQ(res[3], 8);
-//    ASSERT_EQ(res[4], 3);
-//    ASSERT_EQ(res[5], 6);
-//    ASSERT_EQ(res[6], 12);
-//    ASSERT_EQ(res[7], 7);
-//    ASSERT_EQ(res[8], 14);
-//    ASSERT_EQ(res[9], 15);
+    bt2.preorderTraversal(res);
+    ASSERT_EQ(res.size(), 10);
+    ASSERT_EQ(res[0], 1);
+    ASSERT_EQ(res[1], 2);
+    ASSERT_EQ(res[2], 4);
+    ASSERT_EQ(res[3], 8);
+    ASSERT_EQ(res[4], 3);
+    ASSERT_EQ(res[5], 6);
+    ASSERT_EQ(res[6], 12);
+    ASSERT_EQ(res[7], 7);
+    ASSERT_EQ(res[8], 14);
+    ASSERT_EQ(res[9], 15);
 }
 
 int main() {
