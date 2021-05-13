@@ -5,13 +5,13 @@
 #include "BinaryTree.h"
 
 template<typename T>
-int heightRecur(BiTNode<T> *head){
+int heightRecur(BiTNode<T> *head) {
     int left = 0, right = 0;
     if (head == nullptr)
         return 0;
     left = heightRecur<T>(head->lchild) + 1;
     right = heightRecur<T>(head->rchild) + 1;
-    return left>right?left:right;
+    return left > right ? left : right;
 }
 
 template<typename T>
@@ -192,10 +192,10 @@ void BinaryTree<T>::postorderTraversal(vector<T> &res) {
 template<typename T>
 void BinaryTree<T>::levelTraversal(vector<T> &res) {
     queue<BiTNode<T> *> q;
-    BiTNode<T> * tmp = _head;
+    BiTNode<T> *tmp = _head;
 
     q.push(tmp);
-    while (!q.empty()){
+    while (!q.empty()) {
         tmp = q.front();
         q.pop();
         res.emplace_back(tmp->data);
@@ -275,5 +275,53 @@ void BinaryTree<int>::deserialize(string data) {
     _head = tree[0];
 
     return;
+}
+
+template<typename T>
+void inThread(BiTNode<T> *cur, BiTNode<T> *&pre) {
+    if (cur != nullptr) {
+        inThread(cur->lchild, pre);
+        if (cur->lchild == nullptr) {
+            cur->lchild = pre;
+            cur->ltag = 1;
+        }
+        if (pre != nullptr && pre->rchild == nullptr) {
+            pre->rchild = cur;
+            pre->rtag = 1;
+        }
+        pre = cur;
+        inThread(cur->rchild, pre);
+    }
+}
+
+template<typename T>
+void BinaryTree<T>::inOrderThreading() {
+    BiTNode<T> * pre = nullptr;
+    if (_head != nullptr) {
+        inThread(_head, pre);
+        pre->rchild = nullptr;
+        pre->rtag = 1;
+    }
+}
+
+template<typename T>
+BiTNode<T> *BinaryTree<T>::firstNode(BiTNode<T> *p) {
+    while(p->ltag == 0) p = p->lchild;
+    return p;
+}
+
+template<typename T>
+BiTNode<T> *BinaryTree<T>::nextNode(BiTNode<T> *p) {
+    if (p->rtag == 0) return firstNode(p->rchild);
+    return p->rchild;
+}
+
+template<typename T>
+void BinaryTree<T>::inOrder(vector<T> &res) {
+    BiTNode<T> *tmp = firstNode(_head);
+    while(tmp != nullptr) {
+        res.emplace_back(tmp->data);
+        tmp = nextNode(tmp);
+    }
 }
 

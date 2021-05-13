@@ -7,9 +7,10 @@ struct BiTNode {
     BiTNode<T> *lchild;
     BiTNode<T> *rchild;
     // BitNode *lchild ?
+    int rtag;
+    int ltag;
 
-    explicit BiTNode(T data) : data(data), lchild(nullptr), rchild(nullptr) {}
-
+    explicit BiTNode(T data) : data(data), lchild(nullptr), rchild(nullptr),rtag(0),ltag(0) {}
 
 };
 

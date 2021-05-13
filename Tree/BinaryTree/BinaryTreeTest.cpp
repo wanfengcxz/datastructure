@@ -5,6 +5,12 @@
 #include "BinaryTree.h"
 #include "BinaryTree.cpp"
 
+/**
+*      1
+*   2     3
+*  4     6  7
+*/
+
 class BinaryTreeTest : public ::testing::Test {
 protected:
     BinaryTree<int> bt1,bt2,bt3;
@@ -204,6 +210,32 @@ TEST_F(BinaryTreeTest, serialize){
 TEST_F(BinaryTreeTest, deserialize){
     bt3.deserialize("[20,12,354,15,null,26,null]");
     ASSERT_STREQ(bt3.serialize().c_str(), "[20,12,354,15,null,26,null]");
+}
+
+TEST_F(BinaryTreeTest, inorderThread){
+    bt1.inOrderThreading();
+    bt1.inOrder(res);
+    ASSERT_EQ(res.size(), 6);
+    ASSERT_EQ(res[0], 4);
+    ASSERT_EQ(res[1], 2);
+    ASSERT_EQ(res[2], 1);
+    ASSERT_EQ(res[3], 6);
+    ASSERT_EQ(res[4], 3);
+    ASSERT_EQ(res[5], 7);
+    res.clear();
+    bt2.inOrderThreading();
+    bt2.inOrder(res);
+    ASSERT_EQ(res.size(), 10);
+    ASSERT_EQ(res[0], 8);
+    ASSERT_EQ(res[1], 4);
+    ASSERT_EQ(res[2], 2);
+    ASSERT_EQ(res[3], 1);
+    ASSERT_EQ(res[4], 12);
+    ASSERT_EQ(res[5], 6);
+    ASSERT_EQ(res[6], 3);
+    ASSERT_EQ(res[7], 14);
+    ASSERT_EQ(res[8], 7);
+    ASSERT_EQ(res[9], 15);
 }
 
 int main() {

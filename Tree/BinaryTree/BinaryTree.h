@@ -25,7 +25,7 @@ class BinaryTree {
 public:
     static const int null = 9999;
 
-private:
+protected:
     BiTNode<T> *_head;
     int _height;
 
@@ -68,6 +68,22 @@ public:
 
     // 反序列化
     void deserialize(string data);
+
+    /**
+     *  以下为线索二叉树的相关算法
+     */
+
+    // 中序遍历对二叉树进行线索化 递归
+    void inOrderThreading();
+
+    // 找到以p为根节点的子树中，第一个被中序遍历的节点
+    BiTNode<T>* firstNode(BiTNode<T> *p);
+
+    // 在中序线索二叉树中找到节点p的后继节点
+    BiTNode<T>* nextNode(BiTNode<T> *p);
+
+    // 中序线索二叉树进行中序遍历
+    void inOrder(vector<T> &res);
 
 
 };
