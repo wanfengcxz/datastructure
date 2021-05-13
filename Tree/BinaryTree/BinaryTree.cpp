@@ -5,6 +5,24 @@
 #include "BinaryTree.h"
 
 template<typename T>
+int heightRecur(BiTNode<T> *head){
+    int left = 0, right = 0;
+    if (head == nullptr)
+        return 0;
+    left = heightRecur<T>(head->lchild) + 1;
+    right = heightRecur<T>(head->rchild) + 1;
+    return left>right?left:right;
+}
+
+template<typename T>
+int BinaryTree<T>::height() {
+    if (_height >= 0)
+        return _height;
+    _height = heightRecur<T>(this->_head);
+    return _height;
+}
+
+template<typename T>
 void preorderTraversal_recur(BiTNode<T> *head, vector<T> &res) {
     if (head != nullptr) {
         res.emplace_back(head->data);
@@ -16,7 +34,7 @@ void preorderTraversal_recur(BiTNode<T> *head, vector<T> &res) {
 
 template<typename T>
 void BinaryTree<T>::preorderTraversalRecur(vector<T> &res) {
-    preorderTraversal_recur<T>(this->head(), res);
+    preorderTraversal_recur<T>(this->_head, res);
     return;
 }
 
@@ -32,7 +50,7 @@ void postorderTraversal_recur(BiTNode<T> *head, vector<T> &res) {
 
 template<typename T>
 void BinaryTree<T>::postorderTraversalRecur(vector<T> &res) {
-    postorderTraversal_recur<T>(this->head(), res);
+    postorderTraversal_recur<T>(this->_head, res);
     return;
 }
 
@@ -49,7 +67,7 @@ void inorderTraversal_recur(BiTNode<T> *head, vector<T> &res) {
 
 template<typename T>
 void BinaryTree<T>::inorderTraversalRecur(vector<T> &res) {
-    inorderTraversal_recur<T>(this->head(), res);
+    inorderTraversal_recur<T>(this->_head, res);
     return;
 }
 
@@ -258,3 +276,4 @@ void BinaryTree<int>::deserialize(string data) {
 
     return;
 }
+

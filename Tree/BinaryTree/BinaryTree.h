@@ -27,9 +27,10 @@ public:
 
 private:
     BiTNode<T> *_head;
+    int _height;
 
 public:
-    explicit BinaryTree() : _head(nullptr) {}
+    explicit BinaryTree() : _head(nullptr),_height(-1) {}
 
     BiTNode<T> * head(){
         return _head;
@@ -38,6 +39,8 @@ public:
     void initBinaryTree();
 
     void createTreeByArray(T arr[]);
+
+    int height();
 
     // 前序遍历 递归
     void preorderTraversalRecur(vector<T> &res);

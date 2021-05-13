@@ -22,6 +22,12 @@ protected:
     }
 };
 
+TEST_F(BinaryTreeTest, height){
+    ASSERT_EQ(bt1.height(), 3);
+    ASSERT_EQ(bt2.height(), 4);
+}
+
+
 TEST_F(BinaryTreeTest, preorderTraversalRecur) {
     bt1.preorderTraversalRecur(res);
     ASSERT_EQ(res.size(), 6);
