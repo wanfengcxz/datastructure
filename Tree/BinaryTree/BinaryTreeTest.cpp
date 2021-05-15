@@ -13,7 +13,7 @@
 
 class BinaryTreeTest : public ::testing::Test {
 protected:
-    BinaryTree<int> bt1,bt2,bt3;
+    BinaryTree<int> bt1,bt2,bt3,bt4;
     vector<int> res;
 
 protected:
@@ -210,6 +210,9 @@ TEST_F(BinaryTreeTest, serialize){
 TEST_F(BinaryTreeTest, deserialize){
     bt3.deserialize("[20,12,354,15,null,26,null]");
     ASSERT_STREQ(bt3.serialize().c_str(), "[20,12,354,15,null,26,null]");
+    bt4.deserialize("[1,2,3,4,5,6,null]");
+    cout << bt4.serialize();
+    ASSERT_STREQ(bt4.serialize().c_str(),"[1,2,3,4,5,6,null]");
 }
 
 TEST_F(BinaryTreeTest, inorderThread){
@@ -236,6 +239,25 @@ TEST_F(BinaryTreeTest, inorderThread){
     ASSERT_EQ(res[7], 14);
     ASSERT_EQ(res[8], 7);
     ASSERT_EQ(res[9], 15);
+}
+
+TEST_F(BinaryTreeTest, FBT){
+    ASSERT_EQ(bt1.isFullBinaryTree(), false);
+    ASSERT_EQ(bt1.isFullBinaryTree(), false);
+    bt3.deserialize("[1,2,3,4,5,6]");
+    ASSERT_EQ(bt3.isFullBinaryTree(), false);
+    bt4.deserialize("[1,2,3,4,5,6,7]");
+    ASSERT_EQ(bt4.isFullBinaryTree(), true);
+
+}
+
+TEST_F(BinaryTreeTest, CBT){
+    ASSERT_EQ(bt1.isCompleteBinaryTree(), false);
+    ASSERT_EQ(bt2.isCompleteBinaryTree(),false);
+    bt3.deserialize("[1,2,3,4,5,6]");
+    ASSERT_EQ(bt3.isCompleteBinaryTree(), true);
+    bt4.deserialize("[1,2,3,4]");
+    ASSERT_EQ(bt4.isCompleteBinaryTree(), true);
 }
 
 int main() {

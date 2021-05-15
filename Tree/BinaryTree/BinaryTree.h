@@ -27,10 +27,10 @@ public:
 
 protected:
     BiTNode<T> *_head;
-    int _height;
-
+//    int _height;
+    // 树是动态变化的，每次获取高度都要重新计算
 public:
-    explicit BinaryTree() : _head(nullptr),_height(-1) {}
+    explicit BinaryTree() : _head(nullptr) {}
 
     BiTNode<T> * head(){
         return _head;
@@ -85,6 +85,11 @@ public:
     // 中序线索二叉树进行中序遍历
     void inOrder(vector<T> &res);
 
+    // 当前树是否为满二叉树 FBT
+    bool isFullBinaryTree();
+
+    // 当前树是否为完全二叉树 CBT
+    bool isCompleteBinaryTree();
 
 };
 

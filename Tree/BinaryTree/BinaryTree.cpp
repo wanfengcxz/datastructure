@@ -16,10 +16,26 @@ int heightRecur(BiTNode<T> *head) {
 
 template<typename T>
 int BinaryTree<T>::height() {
-    if (_height >= 0)
-        return _height;
-    _height = heightRecur<T>(this->_head);
-    return _height;
+    // 递归
+//    return = heightRecur<T>(this->_head);
+    // 迭代 层次遍历
+    int height = 0;
+    queue<BiTNode<T> *> q;
+    BiTNode<T> *tmp = _head;
+    q.push(tmp);
+    while (!q.empty()) {
+        height++;
+        int size = q.size();
+        for (int i = 0; i < size; i++) {
+            tmp = q.front();
+            q.pop();
+            if (tmp->lchild != nullptr)
+                q.push(tmp->lchild);
+            if (tmp->rchild != nullptr)
+                q.push(tmp->rchild);
+        }
+    }
+    return height;
 }
 
 template<typename T>
@@ -296,7 +312,7 @@ void inThread(BiTNode<T> *cur, BiTNode<T> *&pre) {
 
 template<typename T>
 void BinaryTree<T>::inOrderThreading() {
-    BiTNode<T> * pre = nullptr;
+    BiTNode<T> *pre = nullptr;
     if (_head != nullptr) {
         inThread(_head, pre);
         pre->rchild = nullptr;
@@ -306,7 +322,7 @@ void BinaryTree<T>::inOrderThreading() {
 
 template<typename T>
 BiTNode<T> *BinaryTree<T>::firstNode(BiTNode<T> *p) {
-    while(p->ltag == 0) p = p->lchild;
+    while (p->ltag == 0) p = p->lchild;
     return p;
 }
 
@@ -319,9 +335,80 @@ BiTNode<T> *BinaryTree<T>::nextNode(BiTNode<T> *p) {
 template<typename T>
 void BinaryTree<T>::inOrder(vector<T> &res) {
     BiTNode<T> *tmp = firstNode(_head);
-    while(tmp != nullptr) {
+    while (tmp != nullptr) {
         res.emplace_back(tmp->data);
         tmp = nextNode(tmp);
     }
 }
+
+template<typename T>
+bool isFullBinaryTreeRecur(BiTNode<T> *node) {
+    if (node == nullptr) {
+        return false;
+    }
+    if (node->rchild == nullptr && node->lchild == nullptr)
+        return true;
+    if (node->lchild != nullptr || node->rchild != nullptr)
+        return isFullBinaryTreeRecur<T>(node->rchild) && isFullBinaryTreeRecur<T>(node->lchild);
+    return false;
+}
+
+template<typename T>
+bool BinaryTree<T>::isFullBinaryTree() {
+    if (_head == nullptr)
+        return false;
+    queue<BiTNode<T> *> q;
+    BiTNode<T> *tmp = _head;
+    int right_size = 1;
+
+    q.push(tmp);
+    while (!q.empty()) {
+        int size = q.size();
+        if (size == right_size){
+            right_size *= 2;
+        }else
+            return false;
+        for (int i = 0; i < size; i++) {
+            tmp = q.front();
+            q.pop();
+            if (tmp->lchild != nullptr)
+                q.push(tmp->lchild);
+            if (tmp->rchild != nullptr)
+                q.push(tmp->rchild);
+        }
+    }
+
+    return true;
+}
+
+template<typename T>
+bool BinaryTree<T>::isCompleteBinaryTree() {
+    if (_head == nullptr)
+        return false;
+    queue<BiTNode<T> *> q;
+    BiTNode<T> * tmp = _head;
+    q.push(tmp);
+    bool isAllEmpty = false;
+    while (!q.empty()){
+        int size = q.size();
+        for (int i = 0;i<size;i++){
+            tmp = q.front();
+            q.pop();
+            if (isAllEmpty && tmp->lchild != nullptr)
+                return false;
+            if (tmp->lchild == nullptr)
+                isAllEmpty = true;
+            else
+                q.push(tmp->lchild);
+            if (isAllEmpty && tmp->rchild != nullptr)
+                return false;
+            if (tmp->rchild == nullptr)
+                isAllEmpty = true;
+            else
+                q.push(tmp->rchild);
+        }
+    }
+    return true;
+}
+
 
