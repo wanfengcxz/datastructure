@@ -78,8 +78,9 @@ target_link_libraries(KMPTest gtest gtest_main)
 add_executable(BinaryTreeTest Tree/BinaryTree/BinaryTreeTest.cpp)
 target_link_libraries(BinaryTreeTest gtest gtest_main)
 
-## ThreadBinaryTree
-add_executable(ThreadBinaryTreeTest Tree/ThreadBinaryTree/ThreadBinaryTreeTest.cpp)
-target_link_libraries(ThreadBinaryTreeTest gtest gtest_main)
+## BST
+add_executable(BSTTest Tree/BST/BSTTest.cpp)
+target_link_libraries(BSTTest gtest gtest_main)
+
 
 

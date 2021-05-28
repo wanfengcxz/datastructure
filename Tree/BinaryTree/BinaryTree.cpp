@@ -2,6 +2,7 @@
 // Created by 晚风吹行舟 on 2021/5/7.
 //
 
+#include <sstream>
 #include "BinaryTree.h"
 
 template<typename T>
