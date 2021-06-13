@@ -82,5 +82,12 @@ target_link_libraries(BinaryTreeTest gtest gtest_main)
 add_executable(BSTTest Tree/BST/BSTTest.cpp)
 target_link_libraries(BSTTest gtest gtest_main)
 
+#Graph
+
+##SimpleGraph
+###AdjacencyMatrix
+add_executable(MGraphTest Graph/SimpleGraph/AdjacencyMatrix/MGraphTest.cpp)
+target_link_libraries(MGraphTest gtest gtest_main)
+
 
 
