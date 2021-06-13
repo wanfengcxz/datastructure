@@ -27,8 +27,8 @@ void MGraph::createEmptyGraph(int vex_num_, VertexType *vex_) {
 
 void MGraph::addEdges(multimap<int, int> &edges_) {
     for (auto edge_:edges_) {
-        edge[edge_.first-1][edge_.second-1] = 1;
-        edge[edge_.second-1][edge_.first-1] = 1;
+        edge[edge_.first - 1][edge_.second - 1] = 1;
+        edge[edge_.second - 1][edge_.first - 1] = 1;
     }
     arc_num = edges_.size();
 }
@@ -45,8 +45,16 @@ void MGraph::getInstance(int number) {
     if (number == 1) {
         createEmptyGraph(8);
         // 给边进行赋值
-        multimap<int,int> edges = {{1,2},{1,5},{2,6},{3,6},{6,7},
-                          {3,7},{3,4},{4,8},{7,4},{7,8}};
+        multimap<int, int> edges = {{1, 2},
+                                    {1, 5},
+                                    {2, 6},
+                                    {3, 6},
+                                    {6, 7},
+                                    {3, 7},
+                                    {3, 4},
+                                    {4, 8},
+                                    {7, 4},
+                                    {7, 8}};
         addEdges(edges);
     }
 
@@ -75,6 +83,10 @@ void MGraph::BFS_(int vex_index, bool *visited, vector<VertexType> &res) {
     q.push(vex_index);
     // 邻接节点列表
     vector<int> neighbor;
+
+    // 将起始节点设置为已访问
+    visited[vex_index] = true;
+    res.emplace_back(vex[vex_index]);
 
     while (!q.empty()) {
         neighbor.clear();
@@ -106,11 +118,7 @@ vector<VertexType> MGraph::BFS(VertexType vex_) {
     vector<VertexType> res;
 
     // 从vex_开始广度优先遍历
-    int curr_index = index(vex_);
-    visited[curr_index] = true;
-    res.emplace_back(vex_);
-    BFS_(curr_index, visited,res);
-
+    BFS_(index(vex_), visited, res);
 
     // 处理非连通图
     for (int i = 0; i < vex_num; i++) {
@@ -122,6 +130,42 @@ vector<VertexType> MGraph::BFS(VertexType vex_) {
         }
     }
 
+    return res;
+}
+
+void MGraph::DFS_(int vex_index, bool *visited, vector<VertexType> &res) {
+
+    visited[vex_index] = true;
+    res.emplace_back(vex[vex_index]);
+    // 获取当前节点的邻居节点
+    vector<int> neighbor = this->neighbor(vex_index);
+
+    for (int i = 0;i<neighbor.size();i++){
+        if (!visited[neighbor[i]]){
+            DFS_(neighbor[i], visited, res);
+        }
+    }
+}
+
+vector<VertexType> MGraph::DFS(VertexType vex_) {
+
+    // 初始化visited数组 防止节点重复访问
+    bool *visited = new bool[vex_num];
+    for (int i = 0; i < vex_num; i++)
+        visited[i] = false;
+
+    // 遍历结果
+    vector<VertexType> res;
+
+    DFS_(index(vex_), visited, res);
+
+    for (int i = 0; i < vex_num; i++) {
+        if (!visited[i]) {
+            visited[i] = true;
+            res.emplace_back(vex[i]);
+            DFS_(i, visited,res);
+        }
+    }
     return res;
 }
 

@@ -265,7 +265,7 @@ void BinaryTree<int>::deserialize(string data) {
         _head = nullptr;
 
     vector<BiTNode<int> *> tree;
-    // 掐头去尾 [ ]
+    // 掐头去尾 []
     data.erase(0, 1);
     data.pop_back();
     string buffer;
