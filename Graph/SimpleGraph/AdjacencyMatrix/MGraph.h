@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by 晚风吹行舟 on 2021/6/13.
 //
 
@@ -9,11 +9,13 @@
 #include <queue>
 #include <map>
 #include <iostream>
+#include <stack>
 
 using EdgeType = int;
 using VertexType = char;
 using std::vector;
 using std::queue;
+using std::stack;
 using std::multimap;
 using std::cout;
 using std::cin;
@@ -79,7 +81,7 @@ public:
      */
     void createEmptyGraph(int vex_num_, VertexType vex_[] = nullptr);
 
-    void addEdges(multimap<int,int> &edges_);
+    void addEdges(multimap<int,int> &edges_,bool isDirected);
 
     /**
      * 获取一个图的样例
@@ -107,6 +109,7 @@ public:
     vector<int> neighbor(int vex_index);
 
     /**
+     * 无向图
      * 广度优先遍历
      * @算法要点：
      * 1，需要一个辅助队列
@@ -131,6 +134,7 @@ public:
     vector<VertexType> BFS(VertexType vex_);
 
     /**
+     * 无向图
      * 深度优先遍历
      * @算法要点
      * 1，递归地深入探索未被访问过的邻接点（使用递归来进行回溯）
@@ -153,6 +157,17 @@ public:
      */
     vector<VertexType> DFS(VertexType vex_);
 
+    /**
+     * 逆拓扑排序
+     * @return
+     */
+    vector<VertexType> reverseTopologicalSort();
+
+    /**
+     * 拓扑排序
+     * @return
+     */
+    vector<VertexType> topologicalSort();
 
 
 };

@@ -25,24 +25,33 @@ void MGraph::createEmptyGraph(int vex_num_, VertexType *vex_) {
     }
 }
 
-void MGraph::addEdges(multimap<int, int> &edges_) {
-    for (auto edge_:edges_) {
-        edge[edge_.first - 1][edge_.second - 1] = 1;
-        edge[edge_.second - 1][edge_.first - 1] = 1;
+void MGraph::addEdges(multimap<int, int> &edges_, bool isDirected) {
+    // 无向图
+    if (!isDirected) {
+        for (auto edge_:edges_) {
+            edge[edge_.first - 1][edge_.second - 1] = 1;
+            edge[edge_.second - 1][edge_.first - 1] = 1;
+        }
+        // 有向图
+    } else {
+        for (auto edge_:edges_)
+            edge[edge_.first - 1][edge_.second - 1] = 1;
     }
     arc_num = edges_.size();
 }
 
-/**
- * 获取一个图的样例
- * @样例1
- *  1 —— 2    3 —— 4
- *  |    | /  | /  |
- *  5    6 —— 7 —— 8
- */
+
 void MGraph::getInstance(int number) {
 
     if (number == 1) {
+        /**
+         * 获取一个图的样例
+         * @样例1
+         *  1 —— 2    3 —— 4
+         *  |    | /  | /  |
+         *  5    6 —— 7 —— 8
+         */
+        // DFS BFS test case
         createEmptyGraph(8);
         // 给边进行赋值
         multimap<int, int> edges = {{1, 2},
@@ -55,9 +64,25 @@ void MGraph::getInstance(int number) {
                                     {4, 8},
                                     {7, 4},
                                     {7, 8}};
-        addEdges(edges);
+        addEdges(edges, false);
+      /**
+      * 获取一个图的样例
+      * @样例2
+      *  1 ——→ 2 ——→  4
+      *           ↗   ↓
+      *        3 ——→  5
+      */
+    } else if (number == 2) {
+        // 拓扑排序 test case
+        createEmptyGraph(5);
+        // 给边赋值
+        multimap<int, int> edges = {{1, 2},
+                                    {2, 4},
+                                    {3, 4},
+                                    {3, 5},
+                                    {4, 5}};
+        addEdges(edges, true);
     }
-
 }
 
 int MGraph::index(VertexType vex) {
@@ -140,8 +165,8 @@ void MGraph::DFS_(int vex_index, bool *visited, vector<VertexType> &res) {
     // 获取当前节点的邻居节点
     vector<int> neighbor = this->neighbor(vex_index);
 
-    for (int i = 0;i<neighbor.size();i++){
-        if (!visited[neighbor[i]]){
+    for (int i = 0; i < neighbor.size(); i++) {
+        if (!visited[neighbor[i]]) {
             DFS_(neighbor[i], visited, res);
         }
     }
@@ -163,10 +188,56 @@ vector<VertexType> MGraph::DFS(VertexType vex_) {
         if (!visited[i]) {
             visited[i] = true;
             res.emplace_back(vex[i]);
-            DFS_(i, visited,res);
+            DFS_(i, visited, res);
         }
     }
     return res;
+}
+
+vector<VertexType> MGraph::reverseTopologicalSort() {
+    return vector<VertexType>();
+}
+
+vector<VertexType> MGraph::topologicalSort() {
+    // 输出序列
+    vector<VertexType> res(vex_num, 'a');
+    queue<int> q;
+    // 邻接顶点
+    vector<int> neighbor;
+
+    // 统计各个顶点的入度
+    int *indegree = new int[this->vex_num];
+    for (int i = 0;i<vex_num;i++){
+        indegree[i] = 0;
+        for (int j = 0;j<vex_num;j++)
+            if (edge[j][i] != 0)
+                indegree[i]++;
+    }
+
+    // 将度为0的顶点入栈
+    for (int i = 0;i<vex_num;i++){
+        if (indegree[i] == 0)
+            q.push(i);
+    }
+
+    // 统计已排序的顶点的个数
+    int count = 0;
+    // 栈不为空
+    while (!q.empty()){
+        neighbor.clear();
+        int index = q.front();
+        q.pop();
+        res[count++] = vex[index];
+        neighbor = this->neighbor(index);
+        for(int i = 0;i<neighbor.size();i++){
+            if (--indegree[neighbor[i]] == 0)
+                q.push(neighbor[i]);
+        }
+    }
+    if (count < vex_num)
+        return vector<VertexType>();
+    else
+        return res;
 }
 
 
