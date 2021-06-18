@@ -90,4 +90,10 @@ add_executable(MGraphTest Graph/SimpleGraph/AdjacencyMatrix/MGraphTest.cpp)
 target_link_libraries(MGraphTest gtest gtest_main)
 
 
+# Search
+## linear
+add_executable(BinarySearchTest Search/linear/BinarySearch.cpp)
+target_link_libraries(BinarySearchTest gtest gtest_main)
+
+
 

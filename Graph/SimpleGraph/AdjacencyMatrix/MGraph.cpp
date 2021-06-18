@@ -65,13 +65,13 @@ void MGraph::getInstance(int number) {
                                     {7, 4},
                                     {7, 8}};
         addEdges(edges, false);
-      /**
-      * 获取一个图的样例
-      * @样例2
-      *  1 ——→ 2 ——→  4
-      *           ↗   ↓
-      *        3 ——→  5
-      */
+        /**
+        * 获取一个图的样例
+        * @样例2
+        *  1 ——→ 2 ——→  4
+        *           ↗   ↓
+        *        3 ——→  5
+        */
     } else if (number == 2) {
         // 拓扑排序 test case
         createEmptyGraph(5);
@@ -82,12 +82,37 @@ void MGraph::getInstance(int number) {
                                     {3, 5},
                                     {4, 5}};
         addEdges(edges, true);
+    } else if (number == 3) {
+        // 最小生成树 prim kruskal
+        createEmptyGraph(6);
+        // 给边赋值
+        edge[0][1] = 6;
+        edge[0][2] = 5;
+        edge[0][3] = 1;
+        edge[1][0] = 6;
+        edge[2][0] = 5;
+        edge[3][0] = 1;
+        edge[3][1] = 5;
+        edge[3][2] = 4;
+        edge[3][4] = 6;
+        edge[3][5] = 4;
+        edge[1][3] = 5;
+        edge[2][3] = 4;
+        edge[4][3] = 6;
+        edge[5][3] = 4;
+        edge[1][4] = 3;
+        edge[4][1] = 3;
+        edge[4][5] = 6;
+        edge[5][4] = 6;
+        edge[5][2] = 2;
+        edge[2][5] = 2;
+        arc_num = 10;
     }
 }
 
-int MGraph::index(VertexType vex) {
+int MGraph::index(VertexType vex_) {
     for (int i = 0; i < vex_num; i++) {
-        if (this->vex[i] == vex)
+        if (this->vex[i] == vex_)
             return i;
     }
     return -1;
@@ -194,7 +219,57 @@ vector<VertexType> MGraph::DFS(VertexType vex_) {
     return res;
 }
 
+
+vector<int> MGraph::prim(VertexType vex_) {
+    return vector<int>();
+}
+
+int getRoot(int node_index, vector<int> &v) {
+    while (node_index != v[node_index]) node_index = v[node_index];
+    return node_index;
+}
+
+vector<int> MGraph::kruskal() {
+
+    // 构造权值边表
+    vector<Edge> min_weight_vec;
+    for (int i = 0; i < vex_num; i++) {
+        for (int j = i + 1; j < vex_num; j++) {
+            if (edge[i][j] != 0) {
+                min_weight_vec.emplace_back(Edge(i, j, edge[i][j]));
+            }
+        }
+    }
+
+    // 初始化并查集数组
+    vector<int> v(vex_num, 0);
+    for (int i = 0; i < vex_num; i++)
+        v[i] = i;
+
+    // 按权值递增排序
+    sort(min_weight_vec.begin(), min_weight_vec.end());
+
+    // 构成最小生成树的边的权值
+    vector<int> res;
+
+    int root_start = 0, root_end = 0;
+    for (int i = 0; i < min_weight_vec.size(); i++) {
+        root_start = getRoot(min_weight_vec[i].start, v);
+        root_end = getRoot(min_weight_vec[i].end, v);
+        if (root_start != root_end) {
+            v[root_start] = root_end;
+            res.push_back(min_weight_vec[i].weight);
+        }
+    }
+
+    return res;
+}
+
 vector<VertexType> MGraph::reverseTopologicalSort() {
+
+    int *indegree = new int[vex_num];
+
+
     return vector<VertexType>();
 }
 
@@ -207,15 +282,15 @@ vector<VertexType> MGraph::topologicalSort() {
 
     // 统计各个顶点的入度
     int *indegree = new int[this->vex_num];
-    for (int i = 0;i<vex_num;i++){
+    for (int i = 0; i < vex_num; i++) {
         indegree[i] = 0;
-        for (int j = 0;j<vex_num;j++)
+        for (int j = 0; j < vex_num; j++)
             if (edge[j][i] != 0)
                 indegree[i]++;
     }
 
     // 将度为0的顶点入栈
-    for (int i = 0;i<vex_num;i++){
+    for (int i = 0; i < vex_num; i++) {
         if (indegree[i] == 0)
             q.push(i);
     }
@@ -223,13 +298,13 @@ vector<VertexType> MGraph::topologicalSort() {
     // 统计已排序的顶点的个数
     int count = 0;
     // 栈不为空
-    while (!q.empty()){
+    while (!q.empty()) {
         neighbor.clear();
         int index = q.front();
         q.pop();
         res[count++] = vex[index];
         neighbor = this->neighbor(index);
-        for(int i = 0;i<neighbor.size();i++){
+        for (int i = 0; i < neighbor.size(); i++) {
             if (--indegree[neighbor[i]] == 0)
                 q.push(neighbor[i]);
         }
@@ -239,6 +314,7 @@ vector<VertexType> MGraph::topologicalSort() {
     else
         return res;
 }
+
 
 
 

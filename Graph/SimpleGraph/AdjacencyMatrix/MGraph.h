@@ -10,6 +10,7 @@
 #include <map>
 #include <iostream>
 #include <stack>
+#include <algorithm>
 
 using EdgeType = int;
 using VertexType = char;
@@ -20,6 +21,22 @@ using std::multimap;
 using std::cout;
 using std::cin;
 using std::endl;
+using std::sort;
+
+// 无向/有向带权图的边
+struct Edge{
+    int start;
+    int end;
+    int weight;
+    Edge(){}
+
+    Edge(int start_, int end_, int weight_):start(start_), end(end_), weight(weight_){}
+
+    bool operator< (Edge e){
+        return weight < e.weight;
+    }
+
+};
 
 class MGraph {
 
@@ -85,21 +102,26 @@ public:
 
     /**
      * 获取一个图的样例
-     * @样例1
+     * @样例1 无向图
      *  1 —— 2    3 —— 4
      *  |    | /  | /  |
      *  5    6 —— 7 —— 8
-     *
+     * @样例2 有向图
+     *  1 ——→ 2 ——→  4
+     *           ↗   ↓
+     *        3 ——→  5
+     * @样例3 无向带权图
+     * 图详见img/graph1.png
      * @param number 样例编号
      */
     void getInstance(int number);
 
     /**
      * 获取当前节点在节点列表中的下标
-     * @param vex
+     * @param vex_
      * @return 下标 如果不存在返回-1
      */
-    int index(VertexType vex);
+    int index(VertexType vex_);
 
     /**
      * 获得与当前节点邻接的所有节点
@@ -158,14 +180,32 @@ public:
     vector<VertexType> DFS(VertexType vex_);
 
     /**
+     * 无向带权图
+     * 最小生成树 prim
+     * 基于贪心算法的策略
+     * @param vex_ 起始顶点
+     * @return 边
+     */
+    vector<int> prim(VertexType vex_);
+
+    /**
+     * 无向带权图
+     * 最小生成树 kruskal
+     * 基于贪心算法的策略
+     * @return 边
+     */
+     vector<int> kruskal();
+
+
+    /**
      * 逆拓扑排序
-     * @return
+     * @return 输出序列
      */
     vector<VertexType> reverseTopologicalSort();
 
     /**
      * 拓扑排序
-     * @return
+     * @return 输出序列
      */
     vector<VertexType> topologicalSort();
 

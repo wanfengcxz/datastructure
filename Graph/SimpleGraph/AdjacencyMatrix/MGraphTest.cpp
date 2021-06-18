@@ -73,12 +73,25 @@ TEST_F(MGraphTest, DFS) {
     ASSERT_EQ(res[7], '5');
 }
 
+TEST_F(MGraphTest, kruskal) {
+    vector<int> res;
+    graph1.getInstance(3);
+    ASSERT_EQ(graph1.vexNum(), 6);
+    ASSERT_EQ(graph1.edgeNum(), 10);
+    res = graph1.kruskal();
+    ASSERT_EQ(res.size(), 5);
+    for (int i = 0; i < 5; i++) {
+        ASSERT_EQ(res[i], i + 1);
+    }
+
+}
+
 /**
     *  1 ——→ 2 ——→  4
     *           ↗   ↓
     *        3 ——→  5
     */
-TEST_F(MGraphTest, topologicalSort){
+TEST_F(MGraphTest, topologicalSort) {
     graph1.getInstance(2);
     ASSERT_EQ(graph1.vexNum(), 5);
     ASSERT_EQ(graph1.edgeNum(), 5);
@@ -89,7 +102,6 @@ TEST_F(MGraphTest, topologicalSort){
     ASSERT_EQ(res[2], '2');
     ASSERT_EQ(res[3], '4');
     ASSERT_EQ(res[4], '5');
-
 }
 
 int main() {
