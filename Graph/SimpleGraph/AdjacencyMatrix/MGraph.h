@@ -54,6 +54,7 @@ private:
     void DFS_(int vex_index, bool *visited, vector<VertexType> &res);
 
 public:
+    static const int INF = 99999;
 
     /**
      * 等价于C语言中的initialMGraph()
@@ -95,8 +96,9 @@ public:
      * 创建一个空图
      * @param vex_num 顶点数量
      * @param vex 顶点信息 可为空 默认为 1 2 3.....
+     * @param defaultINF 无穷大权值表示方法 默认为0
      */
-    void createEmptyGraph(int vex_num_, VertexType vex_[] = nullptr);
+    void createEmptyGraph(int vex_num_, VertexType vex_[] = nullptr,  int defaultINF = 0);
 
     void addEdges(multimap<int,int> &edges_,bool isDirected);
 

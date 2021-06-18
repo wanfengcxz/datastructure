@@ -4,7 +4,7 @@
 
 #include "MGraph.h"
 
-void MGraph::createEmptyGraph(int vex_num_, VertexType *vex_) {
+void MGraph::createEmptyGraph(int vex_num_, VertexType *vex_, int defaultINF) {
     // 初始化顶点信息
     vex = new VertexType[vex_num_];
     if (vex_ == nullptr) {
@@ -21,7 +21,8 @@ void MGraph::createEmptyGraph(int vex_num_, VertexType *vex_) {
     for (int i = 0; i < vex_num_; i++) {
         edge[i] = new EdgeType[vex_num_];
         for (int j = 0; j < vex_num_; j++)
-            edge[i][j] = 0;
+                // 无穷大表示方法默认为0 也可以传参来控制
+                edge[i][j] = defaultINF;
     }
 }
 
@@ -84,7 +85,7 @@ void MGraph::getInstance(int number) {
         addEdges(edges, true);
     } else if (number == 3) {
         // 最小生成树 prim kruskal
-        createEmptyGraph(6);
+        createEmptyGraph(6, nullptr, INF);
         // 给边赋值
         edge[0][1] = 6;
         edge[0][2] = 5;
@@ -215,13 +216,55 @@ vector<VertexType> MGraph::DFS(VertexType vex_) {
             res.emplace_back(vex[i]);
             DFS_(i, visited, res);
         }
+
     }
     return res;
 }
 
-
 vector<int> MGraph::prim(VertexType vex_) {
-    return vector<int>();
+
+    // 标记各节点是否加入最小生成树
+    bool *isJoined = new bool[vex_num];
+    // 各节点加入最小生成树的最小代价
+    int *lowCost = new int[vex_num];
+    // 加入到最小生成树的边
+    vector<int> res;
+    // 起始顶点的下标
+    int start_vex_index = this->index(vex_);
+
+    // 初始化
+    for (int i = 0;i<vex_num;i++){
+        isJoined[i] = false;
+        lowCost[i] = edge[start_vex_index][i];
+    }
+    // 起始节点默认被加入最小生成树
+    isJoined[start_vex_index] = true;
+
+    // 当前还有vex_num-1个节点没有被加入最小生成树
+    // 所以循环vex_num-1次
+    for (int i = 0;i<vex_num-1;i++){
+        // 保存代价最小的节点的代价值和下标
+        int min = INF;
+        int min_index;
+        // 找出代价最小的节点
+        for (int j = 0;j<vex_num;j++){
+            if (!isJoined[j] && lowCost[j] < min){
+                min = lowCost[j];
+                min_index = j;
+            }
+        }
+        // 将当前最小代价的节点加入最小生成树
+        isJoined[min_index] = true;
+        // 将此边加入最小生成树的边集
+        res.push_back(min);
+
+        // 更新各个节点的最小代价
+        for (int j = 0;j<vex_num;j++){
+            if (!isJoined[j] && lowCost[j] > edge[min_index][j])
+                lowCost[j] = edge[min_index][j];
+        }
+    }
+    return res;
 }
 
 int getRoot(int node_index, vector<int> &v) {
@@ -235,7 +278,7 @@ vector<int> MGraph::kruskal() {
     vector<Edge> min_weight_vec;
     for (int i = 0; i < vex_num; i++) {
         for (int j = i + 1; j < vex_num; j++) {
-            if (edge[i][j] != 0) {
+            if (edge[i][j] != INF) {
                 min_weight_vec.emplace_back(Edge(i, j, edge[i][j]));
             }
         }
@@ -261,14 +304,12 @@ vector<int> MGraph::kruskal() {
             res.push_back(min_weight_vec[i].weight);
         }
     }
-
     return res;
 }
 
 vector<VertexType> MGraph::reverseTopologicalSort() {
 
     int *indegree = new int[vex_num];
-
 
     return vector<VertexType>();
 }

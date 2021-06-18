@@ -73,6 +73,21 @@ TEST_F(MGraphTest, DFS) {
     ASSERT_EQ(res[7], '5');
 }
 
+// img/graph1.png
+TEST_F(MGraphTest, prim){
+    vector<int> res;
+    graph1.getInstance(3);
+    res = graph1.prim('1');
+    ASSERT_EQ(res.size(), 5);
+    ASSERT_EQ(res[0], 1);
+    ASSERT_EQ(res[1], 4);
+    ASSERT_EQ(res[2], 2);
+    ASSERT_EQ(res[3], 5);
+    ASSERT_EQ(res[4], 3);
+
+}
+
+// img/graph1.png
 TEST_F(MGraphTest, kruskal) {
     vector<int> res;
     graph1.getInstance(3);
