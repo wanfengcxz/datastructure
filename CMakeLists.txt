@@ -95,5 +95,7 @@ target_link_libraries(MGraphTest gtest gtest_main)
 add_executable(BinarySearchTest Search/linear/BinarySearch.cpp)
 target_link_libraries(BinarySearchTest gtest gtest_main)
 
-
-
+# Sort
+## InnerSort
+add_executable(InnerSort Sort/InnerSort/sort.cpp)
+target_link_libraries(InnerSort gtest gtest_main)

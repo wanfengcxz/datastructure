@@ -74,10 +74,10 @@ TEST_F(MGraphTest, DFS) {
 }
 
 // img/graph1.png
-TEST_F(MGraphTest, prim){
+TEST_F(MGraphTest, Prim){
     vector<int> res;
     graph1.getInstance(3);
-    res = graph1.prim('1');
+    res = graph1.Prim('1');
     ASSERT_EQ(res.size(), 5);
     ASSERT_EQ(res[0], 1);
     ASSERT_EQ(res[1], 4);
@@ -88,16 +88,44 @@ TEST_F(MGraphTest, prim){
 }
 
 // img/graph1.png
-TEST_F(MGraphTest, kruskal) {
+TEST_F(MGraphTest, Kruskal) {
     vector<int> res;
     graph1.getInstance(3);
     ASSERT_EQ(graph1.vexNum(), 6);
     ASSERT_EQ(graph1.edgeNum(), 10);
-    res = graph1.kruskal();
+    res = graph1.Kruskal();
     ASSERT_EQ(res.size(), 5);
     for (int i = 0; i < 5; i++) {
         ASSERT_EQ(res[i], i + 1);
     }
+}
+
+// img/graph2.png
+TEST_F(MGraphTest, Dijkstra) {
+    ShortestPath *shortestPath;
+    graph1.getInstance(4);
+    ASSERT_EQ(graph1.vexNum(), 5);
+    ASSERT_EQ(graph1.edgeNum(), 10);
+    shortestPath = graph1.Dijkstra('1');
+    ASSERT_EQ(shortestPath[0].dist, 0);
+    ASSERT_EQ(shortestPath[0].predecessor, -1);
+    ASSERT_EQ(shortestPath[0].isFind, true);
+
+    ASSERT_EQ(shortestPath[1].dist, 8);
+    ASSERT_EQ(shortestPath[1].predecessor, 4);
+    ASSERT_EQ(shortestPath[1].isFind, true);
+
+    ASSERT_EQ(shortestPath[2].dist, 9);
+    ASSERT_EQ(shortestPath[2].predecessor, 1);
+    ASSERT_EQ(shortestPath[2].isFind, true);
+
+    ASSERT_EQ(shortestPath[3].dist, 7);
+    ASSERT_EQ(shortestPath[3].predecessor, 4);
+    ASSERT_EQ(shortestPath[3].isFind, true);
+
+    ASSERT_EQ(shortestPath[4].dist, 5);
+    ASSERT_EQ(shortestPath[4].predecessor, 0);
+    ASSERT_EQ(shortestPath[4].isFind, true);
 
 }
 

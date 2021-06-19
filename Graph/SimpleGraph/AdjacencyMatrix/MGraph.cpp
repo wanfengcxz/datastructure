@@ -67,7 +67,7 @@ void MGraph::getInstance(int number) {
                                     {7, 8}};
         addEdges(edges, false);
         /**
-        * 获取一个图的样例
+        * 获取一个图的样例 有向图
         * @样例2
         *  1 ——→ 2 ——→  4
         *           ↗   ↓
@@ -84,7 +84,9 @@ void MGraph::getInstance(int number) {
                                     {4, 5}};
         addEdges(edges, true);
     } else if (number == 3) {
+        // 无向带权图
         // 最小生成树 prim kruskal
+        // img/graph1.png
         createEmptyGraph(6, nullptr, INF);
         // 给边赋值
         edge[0][1] = 6;
@@ -107,6 +109,22 @@ void MGraph::getInstance(int number) {
         edge[5][4] = 6;
         edge[5][2] = 2;
         edge[2][5] = 2;
+        arc_num = 10;
+    } else if (number == 4){
+        // Dijkstra 有向带权图
+        // img/graph2.png
+        createEmptyGraph(5, nullptr, INF);
+        // 给边赋值
+        edge[0][1] = 10;
+        edge[1][2] = 1;
+        edge[0][4] = 5;
+        edge[1][4] = 2;
+        edge[4][1] = 3;
+        edge[4][2] = 9;
+        edge[3][0] = 7;
+        edge[4][3] = 2;
+        edge[2][3] = 4;
+        edge[3][2] = 6;
         arc_num = 10;
     }
 }
@@ -221,7 +239,7 @@ vector<VertexType> MGraph::DFS(VertexType vex_) {
     return res;
 }
 
-vector<int> MGraph::prim(VertexType vex_) {
+vector<int> MGraph::Prim(VertexType vex_) {
 
     // 标记各节点是否加入最小生成树
     bool *isJoined = new bool[vex_num];
@@ -272,7 +290,7 @@ int getRoot(int node_index, vector<int> &v) {
     return node_index;
 }
 
-vector<int> MGraph::kruskal() {
+vector<int> MGraph::Kruskal() {
 
     // 构造权值边表
     vector<Edge> min_weight_vec;
@@ -306,6 +324,50 @@ vector<int> MGraph::kruskal() {
     }
     return res;
 }
+
+ShortestPath* MGraph::Dijkstra(VertexType vex_) {
+
+    // 保存各个顶点是否找到最短路径，最短路径长度和路径上的前驱节点
+    ShortestPath *shortestPath = new ShortestPath[vex_num];
+
+    // 初始化
+    int start_node_index = this->index(vex_);
+    for (int i = 0;i<vex_num;i++){
+        shortestPath[i].isFind = false;
+        shortestPath[i].dist = edge[start_node_index][i];
+        if (shortestPath[i].dist == INF)
+            shortestPath[i].predecessor = -1;
+        else
+            shortestPath[i].predecessor = start_node_index;
+    }
+
+    // 起始节点已经找到最短路径
+    shortestPath[start_node_index].dist = 0;
+    shortestPath[start_node_index].isFind = true;
+
+    // 当前还有vex_num-1个顶点没有找到最短路径
+    for (int i = 0;i<vex_num-1;i++){
+        int min = INF, min_index;
+        for (int j = 0;j<vex_num;j++){
+            if (shortestPath[j].isFind == false && min > shortestPath[j].dist){
+                min = shortestPath[j].dist;
+                min_index = j;
+            }
+        }
+        // 此顶点已找到最短路径
+        shortestPath[min_index].isFind = true;
+        // 更新起始点到其他顶点的路径值
+        for (int j = 0;j<vex_num;j++){
+            if (shortestPath[j].isFind == false && shortestPath[j].dist > min+edge[min_index][j]){
+                shortestPath[j].dist = min+edge[min_index][j];
+                shortestPath[j].predecessor = min_index;
+            }
+        }
+    }
+
+    return shortestPath;
+}
+
 
 vector<VertexType> MGraph::reverseTopologicalSort() {
 
@@ -355,6 +417,7 @@ vector<VertexType> MGraph::topologicalSort() {
     else
         return res;
 }
+
 
 
 

@@ -35,7 +35,15 @@ struct Edge{
     bool operator< (Edge e){
         return weight < e.weight;
     }
+};
 
+struct ShortestPath{
+    // 是否已经找到最短路径
+    bool isFind;
+    // 距离
+    int dist;
+    // 前驱节点
+    int predecessor;
 };
 
 class MGraph {
@@ -114,6 +122,8 @@ public:
      *        3 ——→  5
      * @样例3 无向带权图
      * 图详见img/graph1.png
+     * @样例4 有向带权图
+     * 图详见img/graph2.png
      * @param number 样例编号
      */
     void getInstance(int number);
@@ -188,7 +198,7 @@ public:
      * @param vex_ 起始顶点
      * @return 边
      */
-    vector<int> prim(VertexType vex_);
+    vector<int> Prim(VertexType vex_);
 
     /**
      * 无向带权图
@@ -196,8 +206,9 @@ public:
      * 基于贪心算法的策略
      * @return 边
      */
-     vector<int> kruskal();
+     vector<int> Kruskal();
 
+    ShortestPath* Dijkstra(VertexType vex_);
 
     /**
      * 逆拓扑排序
