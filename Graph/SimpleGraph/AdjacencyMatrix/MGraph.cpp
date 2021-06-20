@@ -371,9 +371,49 @@ ShortestPath* MGraph::Dijkstra(VertexType vex_) {
 
 vector<VertexType> MGraph::reverseTopologicalSort() {
 
-    int *indegree = new int[vex_num];
+    // 逆拓扑序列排序结果
+    vector<VertexType> res;
+    queue<int> q;
 
-    return vector<VertexType>();
+    // 各个顶点的出度表
+    int *outdegree = new int[vex_num];
+    // 初始化
+    for (int i = 0;i<vex_num;i++){
+        outdegree[i] = 0;
+        for (int j = 0;j<vex_num;j++){
+            if (edge[i][j] != 0)
+                outdegree[i]++;
+        }
+    }
+
+    // 将出度为0的顶点加入栈
+    for (int i = 0;i<vex_num;i++){
+        if (outdegree[i] == 0){
+            q.push(i);
+        }
+    }
+
+    while (!q.empty()){
+        // 取出队头元素
+        int curr = q.front();
+        q.pop();
+        // 将队头元素对应的顶点加入结果集
+        res.push_back(vex[curr]);
+
+        // 更新以当前顶点作为后继顶点的顶点的出度
+        for (int i = 0;i<vex_num;i++){
+            if (edge[i][curr] != 0){
+                // 出度减一
+                outdegree[i]--;
+                // 出度减一后如果为0，则加入队列
+                if (outdegree[i] == 0){
+                    q.push(i);
+                }
+            }
+        }
+    }
+
+    return res;
 }
 
 vector<VertexType> MGraph::topologicalSort() {

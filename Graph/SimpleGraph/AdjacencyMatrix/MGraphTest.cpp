@@ -134,6 +134,24 @@ TEST_F(MGraphTest, Dijkstra) {
     *           ↗   ↓
     *        3 ——→  5
     */
+TEST_F(MGraphTest, reverseTopologicalSort) {
+    graph1.getInstance(2);
+    ASSERT_EQ(graph1.vexNum(), 5);
+    ASSERT_EQ(graph1.edgeNum(), 5);
+    res = graph1.reverseTopologicalSort();
+    ASSERT_EQ(res.size(), 5);
+    ASSERT_EQ(res[0], '5');
+    ASSERT_EQ(res[1], '4');
+    ASSERT_EQ(res[2], '2');
+    ASSERT_EQ(res[3], '3');
+    ASSERT_EQ(res[4], '1');
+}
+
+/**
+    *  1 ——→ 2 ——→  4
+    *           ↗   ↓
+    *        3 ——→  5
+    */
 TEST_F(MGraphTest, topologicalSort) {
     graph1.getInstance(2);
     ASSERT_EQ(graph1.vexNum(), 5);
