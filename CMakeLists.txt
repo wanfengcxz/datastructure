@@ -99,3 +99,5 @@ target_link_libraries(BinarySearchTest gtest gtest_main)
 ## InnerSort
 add_executable(InnerSort Sort/InnerSort/sort.cpp)
 target_link_libraries(InnerSort gtest gtest_main)
+add_executable(InnerSortTest Sort/InnerSort/SortTest.cpp)
+target_link_libraries(InnerSortTest gtest gtest_main)
